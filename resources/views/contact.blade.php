@@ -37,9 +37,8 @@
                             <div class="invalid-feedback" >Email is not valid.</div>
                         </div>
                         <div class="form-floating">
-                            <input class="form-control" name="phone" id="phone" type="tel" placeholder=" " />
+                            <input class="form-control phone" name="phone" id="phone" type="tel" placeholder=" " />
                             <label for="phone">Phone Number</label>
-                            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                         </div>
                         <div class="form-floating">
                             <input class="form-control" name="subject" id="subject" type="text" placeholder=" " />
