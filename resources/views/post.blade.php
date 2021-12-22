@@ -1,5 +1,5 @@
 
-@extends('layout.template')
+@extends('layouts.template')
 
 @section('content')
 <!-- Page Header-->
