@@ -14,6 +14,16 @@ class ContactController extends Controller
     }
 
     public function send(Request $request){
+
+        $validated = $request->validate([
+            'name' => 'required|max:250',
+            'email' => 'required|max:250|email',
+            'phone' => 'regex:/\([0-9]{2}\)[0-9]{5}-[0-9]{4}/', #(84)99999-1234
+            'subject' => 'required|max:250',
+            'message' => 'required|max:8000'
+        ]);
+
+        
         $contact = Contact::create($request->all());
 
         #envia o e-mail
@@ -21,7 +31,7 @@ class ContactController extends Controller
                 ->notify(new NewContact($contact));
 
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Your message was sent');
     }
 
         
