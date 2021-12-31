@@ -8,9 +8,16 @@
                 <div class="card-header">{{ __('Posts') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('post.store') }}">
-                        @csrf
 
+
+                    @if ($data->id == "")
+                        <form method="POST" action="{{ route('post.store') }}">
+                    @else
+                        <form method="POST" action="{{ route('post.update',$data) }}">
+                        @method('PUT')
+                    @endif
+
+                        @csrf
                         
                         
                         <div class="row mb-3">
@@ -21,7 +28,7 @@
                             <div class="col-md-6">
                                 <input id="subject" type="text" 
                                     class="form-control @error('subject') is-invalid @enderror" 
-                                    name="subject" value="{{ old('subject') }}" required 
+                                    name="subject" value="{{ old('subject', $data->subject) }}"  
                                     autofocus>
 
                                 @error('subject')
@@ -43,7 +50,7 @@
                             <div class="col-md-6">
                                 <input id="publish_date" type="date" 
                                     class="form-control @error('publish_date') is-invalid @enderror" 
-                                    name="publish_date" value="{{ old('publish_date') }}" required >
+                                    name="publish_date" value="{{ old('publish_date',$data->publish_date == "" ? "" : $data->publish_date->format('Y-m-d')) }}"  >
 
                                 @error('publish_date')
                                     <span class="invalid-feedback" role="alert">
@@ -62,7 +69,7 @@
                             <div class="col-md-6">
                                 <input id="image" type="text" 
                                     class="form-control @error('image') is-invalid @enderror" 
-                                    name="image" value="{{ old('image') }}" required >
+                                    name="image" value="{{ old('image', $data->image) }}"  >
 
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
@@ -79,14 +86,9 @@
 
                             <div class="col-md-6">
                                 <input id="slug" type="text" 
-                                    class="form-control @error('slug') is-invalid @enderror" 
-                                    name="slug" value="{{ old('slug') }}" required >
-
-                                @error('slug')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    class="form-control" 
+                                    value="{{ old('slug', $data->slug) }}" 
+                                    disabled>
                             </div>
                         </div>
 
@@ -98,7 +100,7 @@
                             <div class="col-md-6">
                                 <textarea id="text" type="text" 
                                     class="form-control @error('text') is-invalid @enderror" 
-                                    name="text" >{{ old('text') }}</textarea>
+                                    name="text" >{{ old('text', $data->text) }}</textarea>
 
                                 @error('text')
                                     <span class="invalid-feedback" role="alert">
