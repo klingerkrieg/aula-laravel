@@ -11,7 +11,25 @@ class PostController extends Controller
 {
         
     public function list(Request $request){
-        return view("admin.posts.index", ["list"=>Post::paginate(3)]);
+        $pagination = Post::orderBy("subject");
+
+        if (isset($request->busca) && $request->busca != "") {
+            $pagination->orWhere("subject","like","%$request->busca%");
+            $pagination->orWhere("text","like","%$request->busca%");
+        }
+
+        if (isset($request->subject) && $request->subject != "")
+            $pagination->where("subject","like","%$request->subject%");
+
+        if (isset($request->text) && $request->text != "")
+            $pagination->where("text","like","%$request->text%");
+
+        if (isset($request->publish_date) && $request->publish_date != "")
+            $pagination->whereDate("publish_date",$request->publish_date);
+
+        #$pagination->dd();
+        #$pagination->dump();
+        return view("admin.posts.index", ["list"=>$pagination->paginate(3)]);
     }
 
     public function create(){
@@ -20,7 +38,13 @@ class PostController extends Controller
 
     public function store(PostRequest $request){
         $validated = $request->validated();
-        $post = Post::create($request->all());
+
+        $path = $request->file('image')->store('posts',"public");
+
+        $data = $request->all();
+        $data["image"] = $path;
+
+        $post = Post::create($data);
         return redirect(route("post.edit", $post))->with("success",__("Data saved!"));
     }
 
@@ -38,7 +62,15 @@ class PostController extends Controller
     #salva as edições
     public function update(Post $post, PostRequest $request) {
         $validated = $request->validated();
-        $post->update($request->all());
+
+        $data = $request->all();
+        #necessário, pois não é obrigatório atualizar a imagem
+        if ($request->file('image') != null){
+            $path = $request->file('image')->store('posts',"public");
+            $data["image"] = $path;
+        }
+
+        $post->update($data);
         return redirect()->back()->with("success",__("Data updated!"));
     }
 

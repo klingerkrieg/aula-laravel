@@ -1,9 +1,30 @@
 {
+    "Description" : "Descrição",
     "Name":"Nome",
-    "Email address":"Endereço de e-mail",
+    "Search":"Pesquisar",
+    "E-Mail Address":"Endereço de E-mail",
+    "Password":"Senha",
+    "Remember Me":"Lembrar de mim",
+    "Forgot Your Password?":"Esqueceu sua senha?",
+    "Login":"Entrar",
+    "Register":"Cadastre-se",
+    "Categories":"Categorias",
+    "Category":"Categoria",
+    "Create category":"Criar categoria",
+    "Edit":"Editar",
+    "Delete":"Deletar",
+    "Save":"Salvar",
+    "Post":"Postagem",
+    "Posts":"Postagens",
+    "New post":"Nova Postagem",
+    "Publish date":"Data de publicação",
+    "Text":"Texto",
+    "Image":"Imagem",
     "Subject":"Assunto",
-    "Phone Number":"Telefone",
-    "Message":"Mensagem",
-    "Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!":"Você quer entrar em contato? Preencha o formulário abaixo.",
-    "Send":"Enviar"
+    "Yes":"Sim",
+    "Cancel":"Cancelar",
+    "Confirm":"Confirmação",
+    "Do you really want to delete this record?":"Deseja realmente excluir este registro?"
 }
+   
+

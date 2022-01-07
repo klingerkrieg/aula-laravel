@@ -26,9 +26,16 @@ class PostRequest extends FormRequest
         $rules = [
             'subject' => 'required|max:500',
             'publish_date' => 'required|date',
-            'text' => 'required|max:8000',
-            'image' => 'required',#por enquanto
+            'text' => 'required|max:8000'
         ];
+
+        #somente obrigatório quando for um novo
+        if ($this->method() == "POST"){
+            $rules['image'] = 'required|image|max:1024';
+        } else
+        if ($this->method() == "PUT"){
+            $rules['image'] = 'image|max:1024';
+        }
 
         return $rules;
     }
