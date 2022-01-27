@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,5 +39,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/post/{post}', [PostController::class,"edit"])->name('post.edit');
     Route::put("/post/{post}", [PostController::class,"update"])->name('post.update');
     Route::delete('/post/{post}', [PostController::class,"destroy"])->name('post.destroy');
+
+
+    Route::get('/user/list', [UserController::class,"list"])->name('user.list');
+    #Route::get('/user', [PostController::class,"create"])->name('user.create');
+    #Route::post('/user', [PostController::class,"store"])->name('user.store');
+    Route::get('/user/{user}', [UserController::class,"edit"])->name('user.edit');
+    #Route::put("/user/{user}", [PostController::class,"update"])->name('user.update');
+    #Route::delete('/user/{user}', [PostController::class,"destroy"])->name('user.destroy');
 
 });

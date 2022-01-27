@@ -70,6 +70,7 @@
                             <th scope="col">{{__("Edit")}}</th>
                             <th scope="col">{{__("Subject")}}</th>
                             <th scope="col">{{__("Slug")}}</th>
+                            <th scope="col">{{__("Owner")}}</th>
                             <th scope="col">{{__("Delete")}}</th>
                           </tr>
                         </thead>
@@ -83,6 +84,7 @@
                                     </td>
                                     <td>{{$item->subject}}</td>    
                                     <td>{{$item->slug}}</td>    
+                                    <td>{{$item->user->name}}</td>    
                                     <td>
                                         <form action="{{route('post.destroy',$item)}}" method="post">
                                             @csrf

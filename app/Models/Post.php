@@ -41,6 +41,11 @@ class Post extends Model
     
         $this->attributes["slug"] = Str::slug($subject).$id;
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
     
 
     

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -43,6 +44,7 @@ class PostController extends Controller
 
         $data = $request->all();
         $data["image"] = $path;
+        $data["user_id"] = Auth::user()->id;
 
         $post = Post::create($data);
         return redirect(route("post.edit", $post))->with("success",__("Data saved!"));

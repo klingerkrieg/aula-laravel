@@ -24,7 +24,9 @@
     "Yes":"Sim",
     "Cancel":"Cancelar",
     "Confirm":"Confirmação",
-    "Do you really want to delete this record?":"Deseja realmente excluir este registro?"
+    "Do you really want to delete this record?":"Deseja realmente excluir este registro?",
+    "Owner":"Dono",
+    "Users":"Usuários"
 }
    
 

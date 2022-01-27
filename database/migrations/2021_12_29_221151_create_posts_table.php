@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string("image",500);
             $table->string("slug",250);
             $table->text("text");
+            $table->foreignId("user_id")->constrained();
             $table->softDeletes();
         });
     }
