@@ -61,6 +61,10 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('category.list') }}">{{ __('Category') }}</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.list') }}">{{ __('Users') }}</a>
                             </li>
                                 

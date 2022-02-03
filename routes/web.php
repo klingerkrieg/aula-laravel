@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\Admin\PostController;
@@ -39,6 +40,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/post/{post}', [PostController::class,"edit"])->name('post.edit');
     Route::put("/post/{post}", [PostController::class,"update"])->name('post.update');
     Route::delete('/post/{post}', [PostController::class,"destroy"])->name('post.destroy');
+
+
+    
+    Route::get('/category/list', [CategoryController::class,"list"])->name('category.list');
+    Route::get('/category', [CategoryController::class,"create"])->name('category.create');
+    Route::post('/category', [CategoryController::class,"store"])->name('category.store');
+    Route::get('/category/{category}', [CategoryController::class,"edit"])->name('category.edit');
+    Route::put("/category/{category}", [CategoryController::class,"update"])->name('category.update');
+    Route::delete('/category/{category}', [CategoryController::class,"destroy"])->name('category.destroy');
+    Route::get('/category/desvincular/{category_post}', [CategoryController::class,"desvincular"])->name('category.desvincular');
+
 
 
     Route::get('/user/list', [UserController::class,"list"])->name('user.list');

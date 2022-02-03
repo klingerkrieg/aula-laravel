@@ -26,7 +26,8 @@ class PostRequest extends FormRequest
         $rules = [
             'subject' => 'required|max:500',
             'publish_date' => 'required|date',
-            'text' => 'required|max:8000'
+            'text' => 'required|max:8000',
+            'category_id' => 'exclude_if:category_id,null|exists:categories,id',
         ];
 
         #somente obrigatório quando for um novo

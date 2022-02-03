@@ -9,6 +9,7 @@ function confirmDeleteModal(button){
     var confModal = new bootstrap.Modal(document.getElementById('confirm_modal'))
     confModal.show('fast');
     pendingFormConfirmation = button.parentElement;
+    console.log(pendingFormConfirmation);
 }
 
 function confirmButton(){
