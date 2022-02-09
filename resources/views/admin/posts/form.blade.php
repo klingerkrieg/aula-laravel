@@ -10,7 +10,7 @@
                 <div class="card-body">
 
 
-                    @if ($data->id == "")
+                    @if (!$data->exists)
                         <form id="main" method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data">
                     @else
                         <form id="main" method="POST" action="{{ route('post.update',$data) }}" enctype="multipart/form-data">
@@ -177,28 +177,31 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary" form="main">
-                                    {{ __('Save') }}
-                                </button>
+                                @can('update',$data)
+                                    <button type="submit" id="btn-save" class="btn btn-primary" form="main">
+                                        {{ __('Save') }}
+                                    </button>
+                                @endcan
 
+                                @can('create','App\\Models\Post')
                                 <a class='btn btn-secondary' href="{{route('post.create')}}">
                                     {{__('New post')}}
                                 </a>
+                                @endcan
 
 
                                                                 
-                                @if ($data->id != "")
+                                @can ('delete',$data)
                                 <form name='delete' action="{{route('post.destroy',$data)}}"
                                     method="post"
-                                    style='display: inline-block;'
-                                    >
+                                    style='display: inline-block;'>
                                     @csrf
                                     @method("DELETE")
                                     <button type="button" onclick="confirmDeleteModal(this)" class="btn btn-danger">
                                         {{ __('Delete') }}
                                     </button>
                                 </form>
-                                @endif
+                                @endcan
 
                                 
                             </div>

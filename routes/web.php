@@ -32,17 +32,16 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 
 
 Route::middleware(['auth'])->group(function () {
-    
-    
     Route::get('/post/list', [PostController::class,"list"])->name('post.list');
     Route::get('/post', [PostController::class,"create"])->name('post.create');
     Route::post('/post', [PostController::class,"store"])->name('post.store');
     Route::get('/post/{post}', [PostController::class,"edit"])->name('post.edit');
     Route::put("/post/{post}", [PostController::class,"update"])->name('post.update');
     Route::delete('/post/{post}', [PostController::class,"destroy"])->name('post.destroy');
-
+});
 
     
+Route::middleware(['auth','can:admin-access'])->group(function () {
     Route::get('/category/list', [CategoryController::class,"list"])->name('category.list');
     Route::get('/category', [CategoryController::class,"create"])->name('category.create');
     Route::post('/category', [CategoryController::class,"store"])->name('category.store');

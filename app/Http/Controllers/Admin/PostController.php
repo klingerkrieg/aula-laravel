@@ -9,11 +9,14 @@ use App\Models\CategoryPost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
         
     public function list(Request $request){
+        Gate::authorize('viewAny', Post::class);
+        
         $pagination = Post::orderBy("subject");
 
         if (isset($request->busca) && $request->busca != "") {
@@ -36,12 +39,14 @@ class PostController extends Controller
     }
 
     public function create(){
+        Gate::authorize('create', Post::class);
         $categoriesList = Category::all();
         return view("admin.posts.form", ["data"=>new Post(),
                                         "categoriesList"=>$categoriesList] );
     }
 
     public function store(PostRequest $request){
+        Gate::authorize('create', Post::class);
         $validated = $request->validated();
 
         $path = $request->file('image')->store('posts',"public");
@@ -62,6 +67,7 @@ class PostController extends Controller
     }
 
     public function destroy(Post $post){
+        Gate::authorize('delete', $post);
         $post->delete();
         return redirect(route("post.list"))->with("success",__("Data deleted!"));
     }
@@ -69,6 +75,7 @@ class PostController extends Controller
 
     #abre o formulario de edição
     public function edit(Post $post){
+        Gate::authorize('view', $post);
         $categoriesList = Category::all();
 
         $categories = Category::select("categories.*", "category_posts.id as category_posts_id")
@@ -83,6 +90,7 @@ class PostController extends Controller
 
     #salva as edições
     public function update(Post $post, PostRequest $request) {
+        Gate::authorize('update', $post);
         $validated = $request->validated();
 
         $data = $request->all();
@@ -96,8 +104,10 @@ class PostController extends Controller
 
 
         #vinculação com categoria
-        $cat = Category::find($request["category_id"]);
-        CategoryPost::updateOrCreate(["post_id"=>$post->id,"category_id"=>$cat->id]);
+        if ($request["category_id"]){
+            $cat = Category::find($request["category_id"]);
+            CategoryPost::updateOrCreate(["post_id"=>$post->id,"category_id"=>$cat->id]);
+        }
 
 
         return redirect()->back()->with("success",__("Data updated!"));

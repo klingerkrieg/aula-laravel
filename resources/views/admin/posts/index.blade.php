@@ -55,9 +55,11 @@
                                     {{ __('Search') }}
                                 </button>
 
+                                @can('create','App\Models\Post')  
                                 <a class='btn btn-secondary' href="{{route('post.create')}}">
                                     {{__('New post')}}
                                 </a>
+                                @endcan
                                 
                             </div>
                         </div>
@@ -67,24 +69,31 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">{{__("Edit")}}</th>
+                            @can('viewAny','App\Models\Post')  
+                                <th scope="col">{{__("Edit")}}</th>
+                            @endcan
                             <th scope="col">{{__("Subject")}}</th>
                             <th scope="col">{{__("Slug")}}</th>
                             <th scope="col">{{__("Owner")}}</th>
-                            <th scope="col">{{__("Delete")}}</th>
+                            @can('deleteAny','App\Models\Post')  
+                                <th scope="col">{{__("Delete")}}</th>
+                            @endcan
                           </tr>
                         </thead>
                         <tbody>
                             @foreach ($list as $item)
                                 <tr>
+                                    @can('view',$item)  
                                     <td>
                                         <a href="{{route("post.edit",$item)}}" class="btn btn-primary">
                                             {{ __('Edit') }}
                                         </a>
                                     </td>
+                                    @endcan
                                     <td>{{$item->subject}}</td>    
                                     <td>{{$item->slug}}</td>    
-                                    <td>{{$item->user->name}}</td>    
+                                    <td>{{$item->user->name}}</td>  
+                                    @can('delete',$item)  
                                     <td>
                                         <form action="{{route('post.destroy',$item)}}" method="post">
                                             @csrf
@@ -94,6 +103,7 @@
                                             </button>
                                         </form>
                                     </td>
+                                    @endcan
                                 </tr>
                             @endforeach
 
