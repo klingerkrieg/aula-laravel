@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,8 @@ Route::get('/about', [HomePageController::class,"about"])->name('about');
 Route::get('/posts', [App\Http\Controllers\PostController::class,"index"])->name('posts');
 Route::get('/contact', [ContactController::class,"index"])->name('contact');
 Route::post('/contact', [ContactController::class,"send"])->name('contact.send');
+
+Route::get('verificar_email/{email}', [EmailController::class,"verifyEmail"])->name("verify_email");
 
 Auth::routes();
 

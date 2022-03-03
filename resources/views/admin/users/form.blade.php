@@ -61,6 +61,9 @@
                         </div>
 
 
+                        @include('admin.users.address')
+
+
                         <ol>
                             @foreach ($posts as $post)
                                 <li>
@@ -70,6 +73,9 @@
                         </ol>
 
                         {{ $posts->links() }}
+
+
+
                             
 
                     </form>
