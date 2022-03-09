@@ -34,45 +34,13 @@
 
                         
                         
-                        <div class="row mb-3">
-                            <label for="subject" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Subject') }}
-                            </label>
-
-                            <div class="col-md-6">
-                                <input id="subject" type="text" 
-                                    class="form-control @error('subject') is-invalid @enderror" 
-                                    name="subject" value="{{ old('subject', $data->subject) }}"  
-                                    autofocus>
-
-                                @error('subject')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                        <x-input name="subject" id="subject" label="Subject" 
+                            required="true" :value="$data->subject"></x-input>
 
 
 
-
-                        <div class="row mb-3">
-                            <label for="publish_date" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Publish date') }}
-                            </label>
-
-                            <div class="col-md-6">
-                                <input id="publish_date" type="date" 
-                                    class="form-control @error('publish_date') is-invalid @enderror" 
-                                    name="publish_date" value="{{ old('publish_date',$data->publish_date == "" ? "" : $data->publish_date->format('Y-m-d')) }}"  >
-
-                                @error('publish_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                        <x-input name="publish_date" id="publish_date" label="Publish date" style="background-color:red;"
+                            required="true" type="date" :value="$data->publish_date"></x-input>
 
 
                         <div class="row mb-3">
